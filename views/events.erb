@@ -6,6 +6,10 @@
   <body>
     <h3>All Events</h3>
 
+    <div id="app">
+      {{ message }}
+    </div>
+
     <ul>
       <% @events.each do |event| %>
         <li>
@@ -16,5 +20,15 @@
     </ul>
 
     <a href="/">Back to Home</a>
+
+    <script src="js/vue.js"></script>
+    <script>
+      var app = new Vue({
+        el: '#app',
+        data: {
+          message: 'Hellooo Vue!'
+        }
+      });
+    </script>
   </body>
 </html>

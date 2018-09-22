@@ -1,12 +1,20 @@
-<h3>All Events</h3>
+<!doctype html>
+<html>
+  <head>
+    <title>Rouge, bitches</title>
+  </head>
+  <body>
+    <h3>All Events</h3>
 
-<ul>
-  <% @events.each do |event| %>
-    <li>
-      <%= event.title %>
-      <%= event.start_date %>
-    </li>
-  <% end %>
-</ul>
+    <ul>
+      <% @events.each do |event| %>
+        <li>
+          <%= event.title %>
+          <%= event.start_date %>
+        </li>
+      <% end %>
+    </ul>
 
-<a href="/">Back to Home</a>
+    <a href="/">Back to Home</a>
+  </body>
+</html>

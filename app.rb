@@ -1,10 +1,10 @@
-require 'sinatra'
-require 'sinatra/activerecord'
-require 'sinatra/json'
-require './config/environments'
-require './models/event'
+require "sinatra"
+require "sinatra/activerecord"
+require "sinatra/json"
+require "./config/environments"
+require "./models/event"
 
-set :database, { adapter: 'postgresql', database: 'mydb' }
+set :database, { adapter: "postgresql", database: "mydb" }
 mime_type :json, "application/json"
 
 # before do

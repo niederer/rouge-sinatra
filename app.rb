@@ -1,22 +1,48 @@
 require 'sinatra'
 require 'sinatra/activerecord'
+require 'sinatra/json'
 require './config/environments'
 require './models/event'
 
-get '/' do
-  erb :index
-end
+set :database, { adapter: 'postgresql', database: 'mydb' }
+mime_type :json, "application/json"
 
-post '/submit' do
-  @event = Event.new(params[:event])
-  if @event.save
-    redirect '/events'
-  else
-    "Sorry, there was an error!"
+# before do
+#   content_type :json
+# end
+
+helpers do
+  def json(dataset)
+    if !dataset
+      return no_data
+    else
+      JSON.pretty_generate(JSON.load(dataset.to_json)) + "\n"
+    end
+  end
+
+  def no_data!
+    status 204
   end
 end
 
-get '/events' do
+# get ALL events
+get '/' do
   @events = Event.all
-  erb :events
+  erb :index
+end
+
+# URL with form for new post
+get '/events/new' do
+  erb :new
+end
+
+# create
+post '/submit' do
+  @event = Event.new(params[:event])
+  if @event.save
+    # json @event
+    redirect '/'
+  else
+    "Sorry, there was an error!"
+  end
 end

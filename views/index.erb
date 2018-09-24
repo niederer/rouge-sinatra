@@ -4,12 +4,17 @@
     <title>Rouge, bitches</title>
   </head>
   <body>
-    Rouge, bitches
+    <h3>All Events</h3>
 
-    <form action="/submit" method="POST">
-      <input type="text" name="event[title]" placeholder="Enter Lipstick Name" />
-      <input type="date" name="event[start_date]">
-      <input type="submit" value="Submit" />
-    </form>
+    <ul>
+      <% @events.each do |event| %>
+        <li>
+          <%= event.title %>
+          <%= event.start_date %>
+        </li>
+      <% end %>
+    </ul>
+
+    <a href="events/new">Create New</a>
   </body>
 </html>

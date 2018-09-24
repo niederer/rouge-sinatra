@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Rouge, bitches</title>
+  </head>
+  <body>
+    Rouge, bitches
+
+    <form action="/events/<%= @event.id %>" method="POST">
+      <input type="hidden" name="_method" value="put" />
+      <input type="text" name="event[title]" value="<%= @event.title %>" />
+      <input type="date" name="event[start_date]" value="<%= @event.start_date %>">
+      <input type="submit" value="Submit" />
+    </form>
+
+    <a href="/events/<%= @event.id %>">View Event</a>
+  </body>
+</html>

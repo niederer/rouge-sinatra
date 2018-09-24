@@ -26,23 +26,42 @@ helpers do
 end
 
 # get ALL events
-get '/' do
+get "/" do
   @events = Event.all
   erb :index
 end
 
 # URL with form for new post
-get '/events/new' do
+get "/events/new" do
   erb :new
 end
 
 # create
-post '/submit' do
+post "/create" do
   @event = Event.new(params[:event])
   if @event.save
     # json @event
-    redirect '/'
+    redirect "/"
   else
     "Sorry, there was an error!"
   end
+end
+
+# edit
+get "/events/:id/edit" do
+  @event = Event.find(params[:id])
+  erb :edit
+end
+
+# update
+put "/events/:id" do
+  @event = Event.find(params[:id])
+  @event.update(params[:event])
+  redirect "/events/#{@event.id}"
+end
+
+# show
+get "/events/:id" do
+  @event = Event.find(params[:id])
+  erb :show
 end

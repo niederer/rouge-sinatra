@@ -1,0 +1,18 @@
+<!doctype html>
+<html>
+  <head>
+    <title>Rouge, bitches</title>
+  </head>
+  <body>
+    <h3>All Events</h3>
+
+    <ul>
+      <li>
+        <%= @event.title %>
+        <%= @event.start_date %>
+        <%= @event.id %>
+        <a href="/events/<%= @event.id %>/edit">Edit</a>
+      </li>
+    </ul>
+  </body>
+</html>

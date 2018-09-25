@@ -64,3 +64,10 @@ get "/events/:id" do
   @event = Event.find(params[:id])
   erb :show
 end
+
+# delete
+delete "/events/:id/delete" do
+  @event = Event.find(params[:id])
+  @event.delete
+  redirect "/"
+end

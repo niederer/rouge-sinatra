@@ -12,7 +12,11 @@
       <input type="date" name="event[start_date]" value="<%= @event.start_date %>">
       <input type="submit" value="Submit" />
     </form>
-
+    
+    <form action="/events/<%= @event.id %>/delete" method="post">
+      <input id="hidden" type="hidden" name="_method" value="delete">
+      <input type="submit" value="delete">
+    </form>
     <a href="/events/<%= @event.id %>">View Event</a>
   </body>
 </html>

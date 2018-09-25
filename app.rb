@@ -1,28 +1,25 @@
 require "sinatra"
 require "sinatra/activerecord"
-require "sinatra/json"
+require "sinatra/namespace"
+# require "sinatra/json"
 require "./config/environments"
 require "./models/event"
 
-mime_type :json, "application/json"
+# mime_type :json, "application/json"
 
-# before do
-#   content_type :json
+# helpers do
+#   def json(dataset)
+#     if !dataset
+#       return no_data
+#     else
+#       JSON.pretty_generate(JSON.load(dataset.to_json)) + "\n"
+#     end
+#   end
+
+#   def no_data!
+#     status 204
+#   end
 # end
-
-helpers do
-  def json(dataset)
-    if !dataset
-      return no_data
-    else
-      JSON.pretty_generate(JSON.load(dataset.to_json)) + "\n"
-    end
-  end
-
-  def no_data!
-    status 204
-  end
-end
 
 # get ALL events
 get "/" do
@@ -70,4 +67,14 @@ delete "/events/:id/delete" do
   @event = Event.find(params[:id])
   @event.delete
   redirect "/"
+end
+
+namespace "/api/v1" do
+  before do
+    content_type :json
+  end
+
+  get "/events" do
+    Event.all.to_json
+  end
 end

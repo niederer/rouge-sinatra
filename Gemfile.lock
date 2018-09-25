@@ -25,6 +25,8 @@ GEM
     rack (2.0.5)
     rack-protection (2.0.3)
       rack
+    rack-reducer (0.1.2)
+      rack (>= 1.6, < 3)
     rack-test (0.6.3)
       rack (>= 1.0)
     rake (12.3.1)
@@ -68,6 +70,7 @@ PLATFORMS
 DEPENDENCIES
   activerecord
   pg
+  rack-reducer
   rake
   sinatra
   sinatra-activerecord

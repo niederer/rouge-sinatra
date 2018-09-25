@@ -1,25 +1,8 @@
 require "sinatra"
 require "sinatra/activerecord"
 require "sinatra/namespace"
-# require "sinatra/json"
 require "./config/environments"
 require "./models/event"
-
-# mime_type :json, "application/json"
-
-# helpers do
-#   def json(dataset)
-#     if !dataset
-#       return no_data
-#     else
-#       JSON.pretty_generate(JSON.load(dataset.to_json)) + "\n"
-#     end
-#   end
-
-#   def no_data!
-#     status 204
-#   end
-# end
 
 # get ALL events
 get "/" do

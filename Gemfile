@@ -6,7 +6,6 @@ gem "sinatra-activerecord"
 gem "pg"
 gem "rake"
 gem "sinatra-contrib"
-gem "rack-reducer", require: 'rack-reducer'
 
 group :development do
   gem "tux"

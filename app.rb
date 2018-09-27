@@ -63,4 +63,10 @@ namespace "/api/v1" do
     events.map{ |event| EventSerializer.new(event) }.to_json
     # Event.all.to_json
   end
+
+  get "/events/:id" do |id|
+    event = Event.where(id: id).first
+    halt(404, { message: "Event not found" }.to_json) unless event
+    EventSerializer.new(event).to_json
+  end
 end

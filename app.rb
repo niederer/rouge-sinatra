@@ -94,4 +94,15 @@ namespace "/api/v1" do
       body EventSerializer.new(event).to_json
     end
   end
+
+  patch "/events/:id" do |id|
+    event = Event.where(id: id).first
+    halt(404, { message: "Event not found" }.to_json) unless event
+    if event.update_attributes(json_params)
+      EventSerializer.new(event).to_json
+    else
+      status 422
+      body EventSerializer.new(event).to_json
+    end
+  end
 end

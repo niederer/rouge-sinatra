@@ -3,6 +3,7 @@ require "sinatra/activerecord"
 require "sinatra/namespace"
 require "./config/environments"
 require "./models/event"
+require "./serializers/event_serializer"
 
 # get ALL events
 get "/" do
@@ -58,6 +59,8 @@ namespace "/api/v1" do
   end
 
   get "/events" do
-    Event.all.to_json
+    events = Event.all
+    events.map{ |event| EventSerializer.new(event) }.to_json
+    # Event.all.to_json
   end
 end

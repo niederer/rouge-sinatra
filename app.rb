@@ -58,6 +58,20 @@ namespace "/api/v1" do
     content_type :json
   end
 
+  helpers do
+    def base_url
+      @base_url ||= "#{request.env['rack.url_scheme']}://{request.env['HTTP_HOST']}"
+    end
+
+    def json_params
+      begin
+        JSON.parse(request.body.read)
+      rescue
+        halt 400, { message: "Invalid JSON" }.to_json
+      end
+    end
+  end
+
   get "/events" do
     events = Event.all
     events.map{ |event| EventSerializer.new(event) }.to_json
@@ -68,5 +82,16 @@ namespace "/api/v1" do
     event = Event.where(id: id).first
     halt(404, { message: "Event not found" }.to_json) unless event
     EventSerializer.new(event).to_json
+  end
+
+  post "/events" do
+    event = Event.new(json_params)
+    if event.save
+      response.headers['Location'] = "#{base_url}/api/v1/events/{event.id}"
+      status 201
+    else
+      status 422
+      body EventSerializer.new(event).to_json
+    end
   end
 end

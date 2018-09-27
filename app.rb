@@ -70,6 +70,14 @@ namespace "/api/v1" do
         halt 400, { message: "Invalid JSON" }.to_json
       end
     end
+
+    def event
+      @event = Event.where(id: params[:id]).first
+    end
+
+    def halt_if_not_found!
+      halt(404, { message: "Event not found" }.to_json) unless event
+    end
   end
 
   get "/events" do
@@ -79,8 +87,7 @@ namespace "/api/v1" do
   end
 
   get "/events/:id" do |id|
-    event = Event.where(id: id).first
-    halt(404, { message: "Event not found" }.to_json) unless event
+    halt_if_not_found!
     EventSerializer.new(event).to_json
   end
 
@@ -96,8 +103,7 @@ namespace "/api/v1" do
   end
 
   patch "/events/:id" do |id|
-    event = Event.where(id: id).first
-    halt(404, { message: "Event not found" }.to_json) unless event
+    halt_if_not_found!
     if event.update_attributes(json_params)
       EventSerializer.new(event).to_json
     else
@@ -107,7 +113,6 @@ namespace "/api/v1" do
   end
 
   delete "/events/:id" do |id|
-    event = Event.where(id: id).first
     event.destroy if event
     status 204
   end

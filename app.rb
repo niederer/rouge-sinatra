@@ -1,9 +1,18 @@
 require "sinatra"
 require "sinatra/activerecord"
 require "sinatra/namespace"
+require "sinatra/cross_origin"
 require "./config/environments"
 require "./models/event"
 require "./serializers/event_serializer"
+
+configure do
+  enable :cross_origin
+end
+
+before do 
+  response.headers['Access-Control-Allow-Origin'] = '*'
+end
 
 # get ALL events
 get "/" do
@@ -116,4 +125,11 @@ namespace "/api/v1" do
     event.destroy if event
     status 204
   end
+end
+
+options "*" do
+  response.headers["Allow"] = "GET, POST, OPTIONS"
+  response.headers["Access-Control-Allow-Headers"] = "Authorization, Content-Type, Accept, X-User-Email, X-Auth-Token"
+  response.headers["Access-Control-Allow-Origin"] = "*"
+  200
 end

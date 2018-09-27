@@ -105,4 +105,10 @@ namespace "/api/v1" do
       body EventSerializer.new(event).to_json
     end
   end
+
+  delete "/events/:id" do |id|
+    event = Event.where(id: id).first
+    event.destroy if event
+    status 204
+  end
 end
